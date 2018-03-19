@@ -3,7 +3,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
     create_table(:users) do |t|
       ## Required
       t.string :provider, :null => false, :default => "email"
-      t.string :uid, :null => false, :default => ""
+      t.string :uid, :null => false, :default => "", unique: true
 
       ## Database authenticatable
       t.string :encrypted_password, :null => false, :default => ""
@@ -24,10 +24,10 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       t.string   :last_sign_in_ip
 
       ## Confirmable
-      t.string   :confirmation_token
-      t.datetime :confirmed_at
-      t.datetime :confirmation_sent_at
-      t.string   :unconfirmed_email # Only if using reconfirmable
+      # t.string   :confirmation_token
+      # t.datetime :confirmed_at
+      # t.datetime :confirmation_sent_at
+      # t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
       # t.integer  :failed_attempts, :default => 0, :null => false # Only if lock strategy is :failed_attempts
@@ -35,13 +35,13 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       # t.datetime :locked_at
 
       ## User Info
-      t.string :name
-      t.string :nickname
+      t.string :name, :null => false
+      t.string :nickname, :null => false, unique: true
       t.string :image
-      t.string :email
+      t.string :email, :null => false, unique: true
 
       ## Tokens
-      t.text :tokens
+      t.text :tokens, :null => false, unique: true
 
       t.timestamps
     end
