@@ -1,6 +1,6 @@
 version: '2'
 services:
-  authentication_db:
+  authentication-db:
     image: mysql
     ports:
       - "3307:3306"
@@ -8,12 +8,12 @@ services:
       MYSQL_ROOT_PASSWORD: arqui
       MYSQL_USER: user
       MYSQL_PASSWORD: arqui
-      MYSQL_DATABASE: authentication_ms_development
-      MYSQL_HOST: authentication_db
-  authentication_ms:
+      MYSQL_DATABASE: authentication-ms-development
+      MYSQL_HOST: authentication-db
+  authentication-ms:
     build: .
     command: bash -c "sleep 40 && rm -f tmp/pids/server.pid && bundle exec rails db:migrate && bundle exec rails s -p 4003 -b '0.0.0.0'"
     ports:
       - "4003:4003"
     depends_on:
-      - authentication_db
+      - authentication-db
