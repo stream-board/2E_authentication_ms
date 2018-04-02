@@ -40,6 +40,33 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/ErrorModel'
+  /users/{id}:
+    get:
+      summary: Retorna el usuario identificado con el id dado
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: El id del usuario a ser retornado
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Data'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
 
 definitions:
 
