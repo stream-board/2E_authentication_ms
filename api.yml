@@ -18,7 +18,7 @@ produces:
 paths:
   /auth/sign_in:
     post:
-      summary: Creates a new session user
+      summary: Crea una nueva sesion de usuario.
       operationId: createSeassion
       parameters:
         - name: email, password
@@ -34,6 +34,54 @@ paths:
             $ref: '#/definitions/Data'
         '401':
           description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /auth/validate_token:
+    get:
+      summary: Valida la sesion de usuario.
+      operationId: validateSeassion
+      parameters:
+        - name: access-token, client, uid 
+          in: header
+          required: true
+          description: Token actual y cliente del uid de la sesion.
+          schema:
+            $ref: '#/definitions/Headers'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/LoginData'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /auth/sign_out:
+    delete:
+      summary: Destruye la sesion de usuario.
+      operationId: deleteSeassion
+      parameters:
+        - name: access-token, client, uid 
+          in: header
+          required: true
+          description: Token actual y cliente del uid de la sesion.
+          schema:
+            $ref: '#/definitions/Headers'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Success'
+        '404':
+          description: Not Found
           schema:
             $ref: '#/definitions/ErrorModel'
         '500':
@@ -79,15 +127,31 @@ definitions:
         type: string
       provider:
         type: string
-      uid:
-        type: string
-      allow_password_change:
-        type: boolean
       name:
         type: string
       nickname:
         type: string
       image:
+        type: string
+        
+  LoginData:
+    type: object
+    properties:
+      id:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      nickname:
+        type: string
+      image:
+        type: string
+      token:
+        type: string
+      type:
+        type: string
+      client:
         type: string
 
   # Sessions
@@ -97,6 +161,12 @@ definitions:
       data:
         type: object
         $ref: '#/definitions/User'
+        
+  Success:
+    type: object
+    properties:
+      success:
+        type: boolean
 
   SessionInput:
     type: object
@@ -104,6 +174,16 @@ definitions:
       email:
         type: string
       password:
+        type: string
+
+  Headers:
+    type: object
+    properties:
+      uid:
+        type: string
+      token:
+        type: string
+      client:
         type: string
 
 # Errors
