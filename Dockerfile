@@ -8,3 +8,5 @@ ADD Gemfile.lock /authentication-ms/Gemfile.lock
 
 RUN bundle install
 ADD . /authentication-ms
+
+EXPOSE 4003
