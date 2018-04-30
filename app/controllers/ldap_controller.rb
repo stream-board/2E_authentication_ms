@@ -20,7 +20,7 @@ class LdapController < ApplicationController
         email = email[/\A\w+/].downcase
 
         if connect()
-            ldap = Net::LDAP,new(
+            ldap = Net::LDAP.new(
                 host: 'streamboard-ldap',
                 port: 389,
                 auth: {
