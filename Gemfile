@@ -44,3 +44,4 @@ gem 'devise_token_auth'
 gem 'omniauth'
 
 gem 'net-ldap'
+gem 'wash_out'
