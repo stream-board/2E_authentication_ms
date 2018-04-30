@@ -3,11 +3,11 @@ class LdapController < ApplicationController
 
     def connect
         ldap = Net::LDAP.new(
-            host: 'stream-board-ldap',
+            host: 'streamboard-ldap',
             port: 389,
             auth: {
                 method: :simple,
-                dn: "cn=admin,dc=streamboard,dc=unal,dc=edu,dc=co",
+                dn: "cn=admin,dc=arqsoft,dc=unal,dc=edu,dc=co",
                 password: "admin"
             }
         )
@@ -21,11 +21,11 @@ class LdapController < ApplicationController
 
         if connect()
             ldap = Net::LDAP,new(
-                host: 'stream-board-ldap',
+                host: 'streamboard-ldap',
                 port: 389,
                 auth: {
                     method: :simple,
-                    dn: "cn=" + email + "@unal.edu.co, ou=regular,dc=streamboard,dc=unal,dc=edu,dc=co",
+                    dn: "cn=" + email + "@unal.edu.co, ou=regular,dc=arqsoft,dc=unal,dc=edu,dc=co",
                     password: password
                 }
             )
